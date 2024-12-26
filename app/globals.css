@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Phone Input Start*/
+
+.phone-input-container .form-control {
+  background-color: #1a1a1a !important;
+  color: white !important;
+  padding-left: 55px !important;
+  height: 40px !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.phone-input-container .flag-dropdown {
+  background-color: #1a1a1a !important;
+  border: none !important;
+}
+
+.phone-input-container .selected-flag {
+  background-color: #1a1a1a !important;
+  margin-right: 10px !important;
+}
+
+.phone-input-container .country-list .country {
+  color: white !important;
+}
+.phone-input-container .country-list .country:hover,
+.phone-input-container .country-list .country.highlight {
+  background-color: var(--primary-brand) !important;
+  color: white !important;
+}
+
+.phone-input-container .country-list .country.selected {
+  background-color: var(--primary-brand) !important;
+  color: white !important;
+}
+
+.phone-input-container .form-control::placeholder {
+  color: var(--placeholder-color, #9ca3af) !important;
+  opacity: 1 !important;
+}
+
+/* Phone Input End */

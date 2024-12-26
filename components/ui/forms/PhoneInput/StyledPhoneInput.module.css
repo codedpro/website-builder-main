@@ -1,0 +1,74 @@
+.phoneInputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.phoneInputContainer .formControl {
+  background-color: #1a1a1a  !important;
+  color: white !important;
+  padding-left: 55px !important;
+  height: 40px !important;
+  border: none !important;
+  border-radius: 6px;
+  outline: none !important;
+  width: 100%;
+}
+.phoneInputContainer .flagDropdown {
+  background-color: #1a1a1a  !important;
+  border: none !important;
+  height: 40px !important;
+  border-radius: 6px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phoneInputContainer .selectedFlag {
+  background-color: #1a1a1a  !important;
+  margin-right: 10px !important;
+}
+
+.phone-input-container .country-list {
+  background-color: #1a1a1a !important;
+  color: white !important;
+  z-index: 9999 !important; /* Add high z-index to country dropdown */
+  position: absolute !important; /* Ensure the dropdown is positioned absolutely */
+}
+
+.phoneInputContainer .country {
+  padding: 10px;
+  color: white !important;
+  cursor: pointer;
+}
+
+.phoneInputContainer .country:hover,
+.phoneInputContainer .country.highlight {
+  background-color: var(--primary-brand) !important;
+  color: white !important;
+}
+
+.phoneInputContainer .country.selected {
+  background-color: var(--primary-brand) !important;
+  color: white !important;
+}
+
+.phoneInputContainer .formControl::placeholder {
+  color: var(--placeholder-color, #9ca3af) !important;
+  opacity: 1 !important;
+}
+.phone-input-container .country-list .country {
+    color: white !important;
+  }
+  .phone-input-container .country-list .country:hover,
+  .phone-input-container .country-list .country.highlight {
+    background-color: var(--primary-brand) !important;
+    color: white !important;
+  }
+  
+  .phone-input-container .country-list .country.selected {
+    background-color: var(--primary-brand) !important;
+    color: white !important;
+  }
+  
+  
