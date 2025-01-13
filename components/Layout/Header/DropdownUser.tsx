@@ -8,6 +8,7 @@ import {
   UserDropdownTexts,
 } from "@/types/UserDropdown";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface DropdownUserProps {
   isRtl: boolean;
@@ -23,9 +24,12 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const { data: session } = useSession();
+  const router = useRouter();
   const handleLogout = async () => {
     try {
-      await signOut({ callbackUrl: "/auth" });
+      await signOut();
+      router.push("/auth")
+    router
     } catch (error) {
       console.error("Error during logout:", error);
     }
