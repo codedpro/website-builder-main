@@ -32,7 +32,6 @@ export const authOptions: NextAuthOptions = {
             phone_number: user.phone_number,
           };
         } catch (error) {
-          // Explicitly handle 'unknown' type error
           if (error instanceof Error) {
             throw new Error(error.message || "Authentication failed");
           } else {

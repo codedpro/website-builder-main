@@ -32,40 +32,41 @@ export async function getAvailableBookings(): Promise<Booking[]> {
 }
 
 export async function getUserBookings(userId?: string): Promise<UserBooking[]> {
-    let connection: PoolConnection | undefined;
-  
-    try {
-      connection = await db.getConnection();
-  
-      let rows: RowDataPacket[][];
-  
-      if (userId) {
-        const [result]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
-          "CALL GetUserBookingsByWebsite(?, ?)",
-          [userId, "123e4567-e89b-12d3-a456-426214174000"]
-        );
-        rows = result;
-      } else {
-        const [result]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
-          "CALL GetAllBookingsByWebsite(?)",
-          ["123e4567-e89b-12d3-a456-426214174000"]
-        );
-        rows = result;
-      }
-  
-      // Cast rows[0] to UserBooking[] after extracting the first result set
-      const bookings: UserBooking[] = rows[0] as UserBooking[];
-  
-      return bookings;
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-      throw new Error("Failed to fetch bookings.");
-    } finally {
-      if (connection) {
-        connection.release();
-      }
+  let connection: PoolConnection | undefined;
+
+  try {
+    connection = await db.getConnection();
+
+    let rows: RowDataPacket[][];
+
+    if (userId) {
+      const [result]: [RowDataPacket[][], FieldPacket[]] =
+        await connection.query("CALL GetUserBookingsByWebsite(?, ?)", [
+          userId,
+          "123e4567-e89b-12d3-a456-426214174000",
+        ]);
+      rows = result;
+    } else {
+      const [result]: [RowDataPacket[][], FieldPacket[]] =
+        await connection.query("CALL GetAllBookingsByWebsite(?)", [
+          "123e4567-e89b-12d3-a456-426214174000",
+        ]);
+      rows = result;
+    }
+
+    // Cast rows[0] to UserBooking[] after extracting the first result set
+    const bookings: UserBooking[] = rows[0] as UserBooking[];
+
+    return bookings;
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    throw new Error("Failed to fetch bookings.");
+  } finally {
+    if (connection) {
+      connection.release();
     }
   }
+}
 export async function getUserRolePermissions(
   userId: string,
   websiteId: string
@@ -184,6 +185,31 @@ export async function getTimeBlocks(): Promise<Schedule[]> {
   } catch (error) {
     console.error("Error fetching available bookings:", error);
     throw new Error("Failed to fetch available bookings.");
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+}
+
+export async function getWebsiteBuilderAddons(): Promise<
+  WebsiteBuilderAddon[]
+> {
+  let connection;
+
+  try {
+    connection = await db.getConnection();
+
+    const [rows]: [RowDataPacket[][], FieldPacket[]] = await connection.query(
+      "CALL GetWebsiteBuilderAddons()"
+    );
+
+    const addons: WebsiteBuilderAddon[] = rows[0] as WebsiteBuilderAddon[];
+
+    return addons;
+  } catch (error) {
+    console.error("Error fetching addons:", error);
+    throw new Error("Failed to fetch addons");
   } finally {
     if (connection) {
       connection.release();

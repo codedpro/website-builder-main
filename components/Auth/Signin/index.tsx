@@ -114,7 +114,7 @@ export default function Signin() {
           setError(res.error);
         }
       } else {
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (err: unknown) {
       if (err instanceof Error) {

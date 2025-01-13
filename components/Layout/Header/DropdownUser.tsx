@@ -2,13 +2,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ClickOutside from "@/components/Layout/ClickOutside";
-import { useRouter } from "next/navigation";
-import useUserStore from "@/store/userStore";
+
 import {
   UserDropdownPlaceholders,
   UserDropdownTexts,
 } from "@/types/UserDropdown";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 interface DropdownUserProps {
   isRtl: boolean;
@@ -22,13 +21,14 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
   texts,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const router = useRouter();
-  const { data: session } = useSession();
-  const user = useUserStore((state) => state.user);
 
-  const handleLogout = () => {
-    useUserStore.getState().clearUser();
-    router.push("/auth");
+  const { data: session } = useSession();
+  const handleLogout = async () => {
+    try {
+      await signOut({ callbackUrl: "/auth" });
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   return (
@@ -44,9 +44,7 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
               width={112}
               height={112}
               src={
-                user?.Profile ??
-                userPlaceholder.profilePlaceholder ??
-                "/images/user/user-03.png"
+                userPlaceholder.profilePlaceholder ?? "/images/user/user-03.png"
               }
               style={{
                 width: "auto",
@@ -60,9 +58,9 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
 
         <span className="flex items-center gap-2 font-medium text-primary-darkuser dark:text-secondary-lightuser">
           <span className="hidden lg:block">
-            {((session?.user?.first_name ?? "") +
+            {(session?.user?.first_name ?? "") +
               " " +
-              (session?.user?.last_name ?? "") )||
+              (session?.user?.last_name ?? "") ||
               userPlaceholder.namePlaceholder ||
               "میهمان"}
           </span>
@@ -101,7 +99,6 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
                   width={112}
                   height={112}
                   src={
-                    user?.Profile ??
                     userPlaceholder.profilePlaceholder ??
                     "/images/user/user-03.png"
                   }
@@ -217,7 +214,7 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
                   </clipPath>
                 </defs>
               </svg>
-              {texts.logout ?? "Logout"}
+              {texts.logout ?? ""}
             </button>
           </div>
         </div>
