@@ -28,8 +28,7 @@ const DropdownUser: React.FC<DropdownUserProps> = ({
   const handleLogout = async () => {
     try {
       await signOut();
-      router.push("/auth")
-    router
+      router.push("/auth");
     } catch (error) {
       console.error("Error during logout:", error);
     }

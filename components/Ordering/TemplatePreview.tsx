@@ -1,14 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
+
+interface Template {
+  id: string;
+  tag: string;
+  title: string;
+  description: string;
+  button: string;
+  image: string;
+  buttonlink: string
+}
 
 interface TemplatePreviewProps {
-  templates: {
-    id: string;
-    tag: string;
-    title: string;
-    description: string;
-    button: string;
-    image: string;
-  }[];
+  templates: Template[];
 }
 
 export default function TemplatePreview({ templates }: TemplatePreviewProps) {
@@ -47,11 +51,13 @@ export default function TemplatePreview({ templates }: TemplatePreviewProps) {
             {template.description}
           </p>
 
-          {/* Button */}
+          {/* Button -> Link */}
           <div className="mt-4">
-            <button className="w-full px-4 py-2 font-medium text-sm rounded-lg bg-primary-brand text-primary-lightuser hover:bg-tertiary-brand transition-colors">
-              {template.button}
-            </button>
+            <Link href={template.buttonlink} target="_blank">
+              <button className="w-full px-4 py-2 font-medium text-sm rounded-lg bg-primary-brand text-primary-lightuser hover:bg-tertiary-brand transition-colors">
+                {template.button}
+              </button>
+            </Link>
           </div>
         </div>
       ))}
